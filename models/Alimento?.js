@@ -5,11 +5,19 @@ const Schema = mongoose.Schema;
 
 const alimentoShema = new Schema({
     Alimento: {
-        porcion_en_gr: {
+        nombre: {
+            type: String,
+            required: true
+        },
+        unidad_de_medida: {
+            type: String,
+            enum: ["g", "ml"],
+            required: true
+        },
+        porcion: {
             type: Number,
             required: true
         },
-    
     }
 })
 

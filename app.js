@@ -31,9 +31,11 @@ app.use(express.static(path.join(__dirname, "public")));
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const alimentoRouter = require("./routes/alimento");
+const recetaRouter = require("./routes/receta");
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/alimentos", alimentoRouter)
+app.use("/alimentos", alimentoRouter);
+app.use("/recetas", recetaRouter);
 
 module.exports = app;
