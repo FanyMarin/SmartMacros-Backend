@@ -69,7 +69,7 @@ const userSchema = new Schema(
     },
     numero_de_comidas: {
       type: Number,
-      enum: [1, 3, 5],
+      enum: [1, 2, 3, 4, 5],
       required: [
         true,
         "Es necesario que especifiques el numero de comidas que tienes al dia",
