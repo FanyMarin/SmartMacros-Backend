@@ -4,15 +4,16 @@ const Alimento = require("../models/Alimento");
 
 //NECESITO:
 //1) Poder obtener todos los alimentos creados por un usuario
-//2) Poder crear un alimento
-//3) Poder actualizar un alimento
-//4) Poder eliminar un alimento.
-//5) Poder obtener alimentos de una base de datos externa, eso se hace aqui mismo o en otro archivo?
+//2) Poder obtener un alimento en especifico
+//3) Poder crear un alimento
+//4) Poder actualizar un alimento
+//5) Poder eliminar un alimento.
+//6) Poder obtener alimentos de una base de datos externa, eso se hace aqui mismo o en otro archivo?
 
 
-//Para obtener todos los alimentos: -----> Funcional
+//1) Para obtener todos los alimentos: -----> Funcional
 //en esta ruta no necesito populate(), porque no necesito referenciar otros documentos ni informacion
-//de otros documentos que no sea de la collection "nuevosAlimento"
+//de otros documentos que no sea de la collection "alimentos"
 //Con esta ruta obtengo los alimentos con todas las llaves y los detalles, 
 //como puedo hacer para que solo salga su nombre?
 router.get("/", (req, res) => {
@@ -27,7 +28,7 @@ router.get("/", (req, res) => {
     });
 });
 
-//Para crear un nuevo alimento: -----> Funcional
+//3)Para crear un nuevo alimento: -----> Funcional
 //Para esta ruta, vamos a sacar la informacion para crear el nuevo documento de req.body, que es
 //la informacion que el cliente manda a traves de un formulario
 router.post("/crear-alimento", (req, res) => {
@@ -38,7 +39,7 @@ router.post("/crear-alimento", (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-//Para traerme un alimento en especifico: ----> Funcional
+//2) Para traerme un alimento en especifico: ----> Funcional
 //Sacamos el id de req.params para poder usarlo
 router.get("/:id", (req, res) => {
   const { id } = req.params;
@@ -49,10 +50,10 @@ router.get("/:id", (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-//Para actualizar un alimento: -----> Funcional
+//4) Para actualizar un alimento: -----> Funcional
 //findByIdAndUpdate toma el id como primer parametro, las actualizaciones que se van a hacer como el
 //segundo y { new: true } como tercero, que me devuelve el doc ya actualizado
-router.patch("/:id", (req, res) => {
+router.patch("/actualizar/:id", (req, res) => {
   const { id } = req.params;
   Alimento.findByIdAndUpdate(id, req.body, { new: true })
     .then((alimentoActualizado) =>
@@ -61,8 +62,8 @@ router.patch("/:id", (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-//Para eliminar un alimento: -----> Funcional DDDD:
-router.delete("/:id", (req, res) => {
+//5) Para eliminar un alimento: -----> Funcional DDDD:
+router.delete("/eliminar/:id", (req, res) => {
   const { id } = req.params;
   Alimento.findByIdAndRemove(id)
     .then((alimentoEliminado) => {

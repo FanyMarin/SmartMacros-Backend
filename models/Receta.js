@@ -1,3 +1,10 @@
+//Necesito arreglar este modelo, porque en la parte de ingredientes solo puedo poner un array de 
+//strings y quiero poner un array de objetos, en donde cada objeto tenga 
+//1) el nombre del ingrediente
+//2) la unidad de medida
+//3) y la cantidad del ingrediente. 
+//Es como el modelo de "Alimento?". Sera que tengo que referenciar ese modelo en este?
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -5,7 +12,7 @@ const recetaSchema = new Schema(
   {
     nombre: {
       type: String,
-      required: [true, "Es necesario que nombres el alimento"],
+      required: [true, "Es necesario que nombres la receta"],
     },
     informacion_nutricional: {
         Porcion: {
