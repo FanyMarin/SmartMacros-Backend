@@ -2,6 +2,14 @@ const express = require("express");
 const router = express.Router();
 const Alimento = require("../models/Alimento");
 
+//NECESITO:
+//1) Poder obtener todos los alimentos creados por un usuario
+//2) Poder crear un alimento
+//3) Poder actualizar un alimento
+//4) Poder eliminar un alimento.
+//5) Poder obtener alimentos de una base de datos externa, eso se hace aqui mismo o en otro archivo?
+
+
 //Para obtener todos los alimentos: -----> Funcional
 //en esta ruta no necesito populate(), porque no necesito referenciar otros documentos ni informacion
 //de otros documentos que no sea de la collection "nuevosAlimento"
