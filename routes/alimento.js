@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const NuevoAlimento = require("../models/NuevoAlimento");
+const Alimento = require("../models/Alimento");
 
 //NECESITO:
 //1) Poder obtener todos los alimentos 
@@ -18,7 +18,7 @@ const NuevoAlimento = require("../models/NuevoAlimento");
 //Con esta ruta obtengo los alimentos con todas las llaves y los detalles, 
 //como puedo hacer para que solo salga su nombre?
 router.get("/", (req, res) => {
-  NuevoAlimento.find()
+  Alimento.find()
     .then((alimentos) => {
       res.status(200).json({
         result: alimentos,
@@ -33,7 +33,7 @@ router.get("/", (req, res) => {
 //Para esta ruta, vamos a sacar la informacion para crear el nuevo documento de req.body, que es
 //la informacion que el cliente manda a traves de un formulario
 router.post("/crear-alimento", (req, res) => {
-  NuevoAlimento.create({ ...req.body })
+  Alimento.create({ ...req.body })
     .then((alimento) => {
       res.status(201).json({ result: alimento });
     })
@@ -44,7 +44,7 @@ router.post("/crear-alimento", (req, res) => {
 //Sacamos el id de req.params para poder usarlo
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  NuevoAlimento.findById(id)
+  Alimento.findById(id)
     .then((alimento) => {
       res.status(200).json({ result: alimento });
     })
@@ -56,7 +56,7 @@ router.get("/:id", (req, res) => {
 //segundo y { new: true } como tercero, que me devuelve el doc ya actualizado
 router.patch("/actualizar/:id", (req, res) => {
   const { id } = req.params;
-  NuevoAlimento.findByIdAndUpdate(id, req.body, { new: true })
+  Alimento.findByIdAndUpdate(id, req.body, { new: true })
     .then((alimentoActualizado) =>
       res.status(200).json({ result: alimentoActualizado })
     )
@@ -66,7 +66,7 @@ router.patch("/actualizar/:id", (req, res) => {
 //5) Para eliminar un alimento: -----> Funcional DDDD:
 router.delete("/eliminar/:id", (req, res) => {
   const { id } = req.params;
-  NuevoAlimento.findByIdAndRemove(id)
+  Alimento.findByIdAndRemove(id)
     .then((alimentoEliminado) => {
       res.status(200).json({ result: alimentoEliminado });
     })
