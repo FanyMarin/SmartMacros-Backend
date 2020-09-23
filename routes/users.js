@@ -5,13 +5,15 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 //Para las rutas de usuario
-//1) Necesito poder crear un nuevo usuario
-//2) Necesito poder actualizar la informacion del usuario
-//3) Necesito poder eliminar al usuario?
-// Necesito traerme los datos del usuario para poder poner la logica y que me aparezcan los resultados
-// Necesito poder traerme las recetas y alimentos de un usuario en especifico
+//1) Necesito poder crear un nuevo usuario (signup) ---> Funcional
+//2) Necesito poder hacer login ---> Funcional
+//3) Necesito poder hacer logout ---> Funcional
+//4) Necesito poder traer la informacion del usuario ---> Funcional
+//5) Necesito poder actualizar la informacion del usuario ---> Funcional
+//6) Necesito traerme los datos del usuario para poder poner la logica y que me aparezcan los resultados
+//7) Necesito poder traerme las recetas y alimentos de un usuario en especifico
 
-//signup
+//1) signup
 router.post("/signup", (req, res) => {
   //Voy a sacar la contrase;a para poder hashearla y guardar los demas campos en una nueva variable
   //llamada userValues, haciendo uso del rest operator
@@ -30,7 +32,7 @@ router.post("/signup", (req, res) => {
   });
 });
 
-//login
+//2) login
 router.post("/login", (req, res, next) => {
   //Aqui unicamente necesitamos el email y pw, asi que lo sacamos de req.body
   const { email, password } = req.body;
@@ -66,9 +68,38 @@ router.post("/login", (req, res, next) => {
   });
 });
 
-//logout
+//3) logout
 router.post("/logout", (req, res) => {
   res.clearCookie("token").json({ msg: "logout" });
 });
+
+//4) Obtener la informacion del usuario
+router.get("/my-info/:id", (req, res) => {
+  const { id } = req.params;
+  User.findById(id)
+    .then((user) => {
+      res.status(200).json({
+        result: user,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+//5) Para actualizar la informacion del usuario:
+router.patch("/actualizar/:id", (req, res) => {
+  const { id } = req.params;
+  User.findByIdAndUpdate(id, req.body, { new: true })
+    .then((user) => {
+      res.status(200).json({
+        result: user,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
 
 module.exports = router;
