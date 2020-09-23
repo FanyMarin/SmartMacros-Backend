@@ -5,13 +5,13 @@ const Schema = mongoose.Schema;
 
 const registroSchema = new Schema(
   {
-    comida1: {
+    comida1: [{
       //crear boton de a;adir alimento que me lleve directamente a la API de alimentos
       //a una interfaz que me permita filtrar los alimentos que hay
       //aqui tengo que hacer una ruta que me devuelva solo el nombre del alimento
-      type: [String],
-      required: true,
-    },
+      type: Schema.Types.ObjectId,
+      ref: 'Alimento',
+    }],
     comida2: {
         type: [String],
     },

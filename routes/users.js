@@ -10,8 +10,6 @@ const jwt = require("jsonwebtoken");
 //3) Necesito poder hacer logout ---> Funcional
 //4) Necesito poder traer la informacion del usuario ---> Funcional
 //5) Necesito poder actualizar la informacion del usuario ---> Funcional
-//6) Necesito traerme los datos del usuario para poder poner la logica y que me aparezcan los resultados
-//7) Necesito poder traerme las recetas y alimentos de un usuario en especifico
 
 //1) signup
 router.post("/signup", (req, res) => {
