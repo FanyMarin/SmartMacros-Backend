@@ -18,7 +18,7 @@ const userSchema = new Schema(
         },
       },
     },
-    contraseña: {
+    password: {
       type: String,
       required: [true, "La contrase;a es necesaria para continuar"],
     },
