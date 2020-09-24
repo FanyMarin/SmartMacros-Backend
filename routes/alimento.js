@@ -3,12 +3,13 @@ const router = express.Router();
 const Alimento = require("../models/Alimento");
 
 //NECESITO:
-//1) Poder obtener todos los alimentos creados por un usuario
+//1) Poder obtener todos los alimentos 
 //2) Poder obtener un alimento en especifico
 //3) Poder crear un alimento
 //4) Poder actualizar un alimento
 //5) Poder eliminar un alimento.
-//6) Poder obtener alimentos de una base de datos externa, eso se hace aqui mismo o en otro archivo?
+//6) Poder traer todos los alimentos creados por un usuario en particular
+//7) Poder obtener alimentos de una base de datos externa, eso se hace aqui mismo o en otro archivo?
 
 
 //1) Para obtener todos los alimentos: -----> Funcional

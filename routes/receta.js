@@ -8,8 +8,9 @@ const Receta = require("../models/Receta");
 //3) Que un usuario pueda crear una receta ---> Funcional, pero no como lo quiero
 //4) Poder actualizar una receta ---> Funcional
 //5) Poder eliminar esa receta ---> Funcional
+//6) Poder traerme todas las recetas de un usuario en particular
 
-//1) Poder obtner todas las recetas creadas por un usuario
+//1) Poder obtner todas las recetas creadas
 router.get("/", (req, res) => {
   Receta.find()
     .then((recetas) => {
