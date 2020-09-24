@@ -2,15 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Receta = require("../models/Receta");
 
-//Necesito:
-//1) Poder obtner todas las recetas creadas por un usuario ---> Funcional
-//2) De todas esas, poder obtener una en especifico ---> Funcional
-//3) Que un usuario pueda crear una receta ---> Funcional, pero no como lo quiero
-//4) Poder actualizar una receta ---> Funcional
-//5) Poder eliminar esa receta ---> Funcional
-//6) Poder traerme todas las recetas de un usuario en particular
-
-//1) Poder obtner todas las recetas creadas
+//1) Obtener todas las recetas de la coleccion
 router.get("/", (req, res) => {
   Receta.find()
     .then((recetas) => {
@@ -23,7 +15,22 @@ router.get("/", (req, res) => {
     });
 });
 
-//2) De todas esas, poder obtener una en especifico
+//2) Obtener todas las recetas de un usuario en especifico:
+router.get("/mis-recetas", (req, res) => {
+  //const = { _id } = req.user;
+  const _id = "5f6c0cd3fb9763476118d92d"; 
+  Receta.find({ creador: _id })
+    .then((recetas) => {
+      res.status(200).json({
+        result: recetas,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+//3) Obtener una receta en especifico
 router.get("/:id", (req, res) => {
   const { id } = req.params;
   Receta.findById(id)
@@ -37,7 +44,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-//3) Que un usuario pueda crear una receta
+//4) Crear una receta
 router.post("/crear-receta", (req, res) => {
   Receta.create({ ...req.body })
     .then((receta) => {
@@ -50,7 +57,7 @@ router.post("/crear-receta", (req, res) => {
     });
 });
 
-//4) Poder actualizar una receta
+//5) Actualizar una receta
 router.patch("/actualizar/:id", (req, res) => {
   const { id } = req.params;
   Receta.findByIdAndUpdate(id, req.body, { new: true })
@@ -64,7 +71,7 @@ router.patch("/actualizar/:id", (req, res) => {
     });
 });
 
-//5) Poder eliminar esa receta
+//6) Eliminar una receta
 router.delete("/eliminar/:id", (req, res) => {
   const { id } = req.params;
   Receta.findByIdAndRemove(id)
