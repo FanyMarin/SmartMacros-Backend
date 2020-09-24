@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const distribucionMacrosSchema = new Schema({
-  Requerimiento_calórico: {
+  //Aqui tengo que poner el tipo de dieta?
+  Requerimiento_calorico: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
@@ -18,6 +19,13 @@ const distribucionMacrosSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  usuario: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
+
+  //Agregar un campo que muestre los macros restantes despues de un registro?
+  //Como le hago para que se reinicie cuando cambie de dia?
 });
 
 const DistribucionMacros = mongoose.model(

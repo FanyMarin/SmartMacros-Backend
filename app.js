@@ -32,10 +32,12 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const alimentoRouter = require("./routes/alimento");
 const recetaRouter = require("./routes/receta");
+const registroRouter = require("./routes/registro");
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/alimentos", alimentoRouter);
 app.use("/recetas", recetaRouter);
+app.use("/registros", registroRouter);
 
 module.exports = app;

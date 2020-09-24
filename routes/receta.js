@@ -44,7 +44,8 @@ router.get("/:id", (req, res) => {
     });
 });
 
-//4) Crear una receta
+//4) Crear una receta  ---> Aqui falta que se traiga ingredientes de la base de datos de alimentos
+//, no solo sean strings
 router.post("/crear-receta", (req, res) => {
   Receta.create({ ...req.body })
     .then((receta) => {
@@ -57,7 +58,9 @@ router.post("/crear-receta", (req, res) => {
     });
 });
 
-//5) Actualizar una receta
+//5) Actualizar una receta ---> Aqui falta que se pueda actualizar, ya sea la cantidad del mismo
+//alimento o que se cambie por otro (y por lo tanto, se traiga ese otro alimento de la base de
+//datos de alimentos)
 router.patch("/actualizar/:id", (req, res) => {
   const { id } = req.params;
   Receta.findByIdAndUpdate(id, req.body, { new: true })
