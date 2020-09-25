@@ -21,7 +21,7 @@ router.post("/nuevo-registro", (req, res) => {
 router.get("/mis-registros", (req, res) => {
   //const = { _id } = req.user;
   const _id = "5f6c0cd3fb9763476118d92d";
-  Registro.find({ creador: _id })
+  Registro.find({ creador: _id }, 'createdAt')
     .then((registros) => {
       res.status(200).json({
         result: registros,
@@ -36,6 +36,7 @@ router.get("/mis-registros", (req, res) => {
 router.get("/mis-registros/:id", (req, res) => {
   const { id } = req.params;
   Registro.findById(id)
+  .populate()
     .then((registro) => {
       res.status(200).json({
         result: registro,

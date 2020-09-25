@@ -6,9 +6,8 @@ const Alimento = require("../models/Alimento");
 //7) Poder obtener alimentos de una base de datos externa, eso se hace aqui mismo o en otro archivo?
 
 //1) Obtener todos los alimentos de la coleccion:
-//Con esta ruta obtengo los alimentos con todas las llaves y los detalles, como puedo hacer para que solo salga su nombre?
 router.get("/", (req, res) => {
-  Alimento.find()
+  Alimento.find({}, 'Nombre')
     .then((alimentos) => {
       res.status(200).json({
         result: alimentos,
@@ -23,7 +22,7 @@ router.get("/", (req, res) => {
 router.get("/mis-alimentos", (req, res) => {
   //const = { _id } = req.user;
   const _id = "5f6c0cd3fb9763476118d92d"; 
-  Alimento.find({ Creador: _id })
+  Alimento.find({ Creador: _id }, 'Nombre')
     .then((alimentos) => {
       res.status(200).json({
         result: alimentos,

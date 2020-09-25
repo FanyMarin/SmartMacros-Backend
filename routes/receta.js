@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const Receta = require("../models/Receta");
+const Alimento = require("../models/Alimento");
 
 //1) Obtener todas las recetas de la coleccion
 router.get("/", (req, res) => {
-  Receta.find()
+  Receta.find({}, "nombre informacion_nutricional")
     .then((recetas) => {
       res.status(200).json({
         result: recetas,
@@ -18,8 +19,8 @@ router.get("/", (req, res) => {
 //2) Obtener todas las recetas de un usuario en especifico:
 router.get("/mis-recetas", (req, res) => {
   //const = { _id } = req.user;
-  const _id = "5f6c0cd3fb9763476118d92d"; 
-  Receta.find({ creador: _id })
+  const _id = "5f6c0ce3fb9763476118d92e";
+  Receta.find({ creador: _id }, "nombre informacion_nutricional")
     .then((recetas) => {
       res.status(200).json({
         result: recetas,
@@ -30,10 +31,11 @@ router.get("/mis-recetas", (req, res) => {
     });
 });
 
-//3) Obtener una receta en especifico
+//3) Obtener una receta en especifico con todos sus detalles
 router.get("/:id", (req, res) => {
   const { id } = req.params;
   Receta.findById(id)
+    .populate("ingredientes", "Nombre")
     .then((receta) => {
       res.status(200).json({
         result: receta,
@@ -64,6 +66,7 @@ router.post("/crear-receta", (req, res) => {
 router.patch("/actualizar/:id", (req, res) => {
   const { id } = req.params;
   Receta.findByIdAndUpdate(id, req.body, { new: true })
+    .populate("ingredientes", "Nombre")
     .then((recetaActualizada) => {
       res.status(200).json({
         result: recetaActualizada,
