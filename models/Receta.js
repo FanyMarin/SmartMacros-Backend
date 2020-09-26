@@ -29,16 +29,13 @@ const recetaSchema = new Schema(
         min: 1,
         max: 200,
     },
-    ingredientes: {
-        //como le hago para dar a elegir el agregar un ingrediente creado por el propio usuario
-        // o uno de la API?
-        //como le hago para agregar mas de un ingrediente? Para que me de la opcion de crear varios ingredientes
-        type: [String],
+    ingredientes: [{
+        type: Schema.Types.ObjectId,
+        ref: "Alimento",
         required: [true, "Es necesario agregar los ingredientes para crear una receta"]
-    },
+    }],
     pasos: {
         type: [String],
-        //como le hago para agregar mas de un paso? Para que me de la opcion de crear varios pasos
     },
     creador: {
       type: Schema.Types.ObjectId,

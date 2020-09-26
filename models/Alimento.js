@@ -15,7 +15,7 @@ const alimentoShema = new Schema(
       min: 1,
       max: 50,
     },
-    Informacion_nutricional: {
+    Cantidad: {
       Porcion: {
         type: Number,
         required: true,
@@ -25,7 +25,7 @@ const alimentoShema = new Schema(
         enum: ["g", "ml"],
       },
     },
-    Calorias_kcal: {
+    Informacion_nutricional: {
       Grasas: {
         type: Number,
         required: true,
@@ -38,6 +38,9 @@ const alimentoShema = new Schema(
         type: Number,
         required: true,
       },
+      Calorias_kcal: {
+        type: Number
+      }
     },
     Creador: {
       type: Schema.Types.ObjectId,

@@ -32,10 +32,14 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const alimentoRouter = require("./routes/alimento");
 const recetaRouter = require("./routes/receta");
+const registroRouter = require("./routes/registro");
+const distribucionMacrosRouter = require("./routes/distribucionMacros");
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/alimentos", alimentoRouter);
 app.use("/recetas", recetaRouter);
+app.use("/registros", registroRouter);
+app.use("/distribucion-macros", distribucionMacrosRouter);
 
 module.exports = app;

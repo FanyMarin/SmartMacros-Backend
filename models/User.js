@@ -75,7 +75,7 @@ const userSchema = new Schema(
         "Es necesario que especifiques el numero de comidas que tienes al dia",
       ],
     },
-    tipo_de_dieta: {
+    tipo_de_dieta: { 
       type: String,
       enum: [
         "Estandar",
@@ -83,7 +83,6 @@ const userSchema = new Schema(
         "Baja en grasas",
         "Alta en proteinas",
         "Cetogenica",
-        "Personalizada",
       ],
       required: [
         true,
