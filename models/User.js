@@ -75,16 +75,14 @@ const userSchema = new Schema(
         "Es necesario que especifiques el numero de comidas que tienes al dia",
       ],
     },
-    tipo_de_dieta: { //Esto es lo que va a definir la distribucion de macronutrientes
-      //Deberia mejor hacer referencia a otro modelo? El de distribucionMacros?
+    tipo_de_dieta: { 
       type: String,
       enum: [
-        "Estandar", //50%C, 20%P, 30%G
-        "Equilibrada", //50%C, 25%P, 25%G 
-        "Baja en grasas", //60%C, 25%P, 15%G 
-        "Alta en proteinas", //25%C, 40%P, 35%G
-        "Cetogenica", //5%C, 30%P, 65%G
-        //"Personalizada" => No se si poner esta.
+        "Estandar",
+        "Equilibrada",
+        "Baja en grasas",
+        "Alta en proteinas",
+        "Cetogenica",
       ],
       required: [
         true,

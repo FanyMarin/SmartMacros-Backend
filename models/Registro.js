@@ -77,6 +77,12 @@ const registroSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    Macronutrientes_y_cal_restantes: {
+      Calorias: Number,
+      Carbohidratos: Number,
+      Proteinas: Number,
+      Grasas: Number,
+    },
     // macronutrientes_restantes: {
     //   type: Schema.Types.ObjectId,
     //   ref: "DistribucionMacros", //O debe hacer referencia a evento?
