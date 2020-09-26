@@ -5,6 +5,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 mongoose
   .connect(process.env.DB, {
@@ -21,6 +22,12 @@ mongoose
   });
 
 const app = express();
+
+//configuracion del cors
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  credentials: true,
+}))
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -43,3 +50,4 @@ app.use("/registros", registroRouter);
 app.use("/distribucion-macros", distribucionMacrosRouter);
 
 module.exports = app;
+ 

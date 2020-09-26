@@ -3,13 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
-//Para las rutas de usuario
-//1) Necesito poder crear un nuevo usuario (signup) ---> Funcional
-//2) Necesito poder hacer login ---> Funcional
-//3) Necesito poder hacer logout ---> Funcional
-//4) Necesito poder traer la informacion del usuario ---> Funcional
-//5) Necesito poder actualizar la informacion del usuario ---> Funcional
+// const { verifyToken } = require("../utils/auth")
 
 //1) signup
 router.post("/signup", (req, res) => {

@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const Alimento = require("../models/Alimento");
+const { verifyToken } = require("../utils/auth");
 
 //NECESITO:
 //7) Poder obtener alimentos de una base de datos externa, eso se hace aqui mismo o en otro archivo?
 
 //1) Obtener todos los alimentos de la coleccion:
-router.get("/", (req, res) => {
-  Alimento.find({}, 'Nombre')
+router.get("/", verifyToken, (req, res) => {
+  Alimento.find({}, "Nombre")
     .then((alimentos) => {
       res.status(200).json({
         result: alimentos,
@@ -19,10 +20,9 @@ router.get("/", (req, res) => {
 });
 
 //2) Obtener los alimentos de un usuario en especifico:
-router.get("/mis-alimentos", (req, res) => {
-  //const = { _id } = req.user;
-  const _id = "5f6c0cd3fb9763476118d92d"; 
-  Alimento.find({ Creador: _id }, 'Nombre')
+router.get("/mis-alimentos", verifyToken, (req, res) => {
+  const { _id } = req.user;
+  Alimento.find({ Creador: _id }, "Nombre")
     .then((alimentos) => {
       res.status(200).json({
         result: alimentos,
@@ -34,7 +34,7 @@ router.get("/mis-alimentos", (req, res) => {
 });
 
 //3) Obtener un alimento en especifico, con todos sus detalles:
-router.get("/:id", (req, res) => {
+router.get("/:id", verifyToken, (req, res) => {
   const { id } = req.params;
   Alimento.findById(id)
     .then((alimento) => {
@@ -44,8 +44,10 @@ router.get("/:id", (req, res) => {
 });
 
 //4)Crear un nuevo alimento:
-router.post("/crear-alimento", (req, res) => {
-  Alimento.create({ ...req.body })
+router.post("/crear-alimento", verifyToken, (req, res) => {
+  const { _id: Creador } = req.user;
+  const alimento = {...req.body, Creador}
+  Alimento.create(alimento)
     .then((alimento) => {
       res.status(201).json({ result: alimento });
     })
@@ -53,7 +55,7 @@ router.post("/crear-alimento", (req, res) => {
 });
 
 //5) Actualizar un alimento:
-router.patch("/actualizar/:id", (req, res) => {
+router.patch("/actualizar/:id", verifyToken, (req, res) => {
   const { id } = req.params;
   Alimento.findByIdAndUpdate(id, req.body, { new: true })
     .then((alimentoActualizado) =>
@@ -63,7 +65,7 @@ router.patch("/actualizar/:id", (req, res) => {
 });
 
 //6) Eliminar un alimento:
-router.delete("/eliminar/:id", (req, res) => {
+router.delete("/eliminar/:id", verifyToken, (req, res) => {
   const { id } = req.params;
   Alimento.findByIdAndRemove(id)
     .then((alimentoEliminado) => {
