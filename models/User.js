@@ -78,20 +78,20 @@ const userSchema = new Schema(
     tipo_de_dieta: { 
       type: String,
       enum: [
-        "Estandar",
+        "Estándar",
         "Equilibrada",
         "Baja en grasas",
-        "Alta en proteinas",
-        "Cetogenica",
+        "Alta en proteínas",
+        "Cetogénica",
       ],
       required: [
         true,
         "Es necesario que especifiques el tipo de dieta que quieres seguir",
       ],
     },
-    foto_de_perfil: {
-      type: String,
-    },
+    // foto_de_perfil: {
+    //   type: String,
+    // },
   },
   { timestamps: true }
 );

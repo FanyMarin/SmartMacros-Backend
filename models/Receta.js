@@ -1,40 +1,33 @@
-//Necesito arreglar este modelo, porque en la parte de ingredientes solo puedo poner un array de 
-//strings y quiero poner un array de objetos, en donde cada objeto tenga 
-//1) el nombre del ingrediente
-//2) la unidad de medida
-//3) y la cantidad del ingrediente. 
-//Es como el modelo de "Alimento?". Sera que tengo que referenciar ese modelo en este?
-
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const recetaSchema = new Schema(
   {
-    nombre: {
+    Nombre: {
       type: String,
       required: [true, "Es necesario que nombres la receta"],
     },
-    informacion_nutricional: {
+    Descripcion: {
+      type: String,
+      min: 1,
+      max: 200,
+  },
+    Cantidad: {
         Porcion: {
           type: Number,
           required: true,
         },
         Unidad_de_medida: {
           type: String,
-          enum: ["g", "ml", "contenedor"],
+          enum: ["gr", "ml", "contenedor"],
         },
       },
-    descripcion: {
-        type: String,
-        min: 1,
-        max: 200,
-    },
-    ingredientes: [{
+    Ingredientes: [{
         type: Schema.Types.ObjectId,
         ref: "Alimento",
         required: [true, "Es necesario agregar los ingredientes para crear una receta"]
     }],
-    pasos: {
+    Pasos: {
         type: [String],
     },
     creador: {

@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const Receta = require("../models/Receta");
 const Alimento = require("../models/Alimento");
+const { verifyToken } = require("../utils/auth")
 
 //1) Obtener todas las recetas de la coleccion
-router.get("/", (req, res) => {
-  Receta.find({}, "nombre informacion_nutricional")
+router.get("/", verifyToken, (req, res) => {
+  Receta.find({}, "Nombre Cantidad")
     .then((recetas) => {
       res.status(200).json({
         result: recetas,
@@ -17,10 +18,9 @@ router.get("/", (req, res) => {
 });
 
 //2) Obtener todas las recetas de un usuario en especifico:
-router.get("/mis-recetas", (req, res) => {
-  //const = { _id } = req.user;
-  const _id = "5f6c0ce3fb9763476118d92e";
-  Receta.find({ creador: _id }, "nombre informacion_nutricional")
+router.get("/mis-recetas", verifyToken, (req, res) => {
+  const { _id } = req.user;
+  Receta.find({ creador: _id }, "Nombre Cantidad")
     .then((recetas) => {
       res.status(200).json({
         result: recetas,
@@ -32,10 +32,10 @@ router.get("/mis-recetas", (req, res) => {
 });
 
 //3) Obtener una receta en especifico con todos sus detalles
-router.get("/:id", (req, res) => {
+router.get("/:id", verifyToken, (req, res) => {
   const { id } = req.params;
   Receta.findById(id)
-    .populate("ingredientes", "Nombre")
+    .populate("Ingredientes", "Nombre")
     .then((receta) => {
       res.status(200).json({
         result: receta,
@@ -48,8 +48,10 @@ router.get("/:id", (req, res) => {
 
 //4) Crear una receta  ---> Aqui falta que se traiga ingredientes de la base de datos de alimentos
 //, no solo sean strings
-router.post("/crear-receta", (req, res) => {
-  Receta.create({ ...req.body })
+router.post("/crear-receta", verifyToken, (req, res) => {
+  const { _id: creador } = req.user;
+  const receta = {...req.body, creador}
+  Receta.create(receta)
     .then((receta) => {
       res.status(201).json({
         result: receta,
@@ -63,10 +65,10 @@ router.post("/crear-receta", (req, res) => {
 //5) Actualizar una receta ---> Aqui falta que se pueda actualizar, ya sea la cantidad del mismo
 //alimento o que se cambie por otro (y por lo tanto, se traiga ese otro alimento de la base de
 //datos de alimentos)
-router.patch("/actualizar/:id", (req, res) => {
+router.patch("/actualizar/:id", verifyToken, (req, res) => {
   const { id } = req.params;
   Receta.findByIdAndUpdate(id, req.body, { new: true })
-    .populate("ingredientes", "Nombre")
+    .populate("Ingredientes", "Nombre")
     .then((recetaActualizada) => {
       res.status(200).json({
         result: recetaActualizada,
@@ -78,7 +80,7 @@ router.patch("/actualizar/:id", (req, res) => {
 });
 
 //6) Eliminar una receta
-router.delete("/eliminar/:id", (req, res) => {
+router.delete("/eliminar/:id", verifyToken, (req, res) => {
   const { id } = req.params;
   Receta.findByIdAndRemove(id)
     .then((receta) => {

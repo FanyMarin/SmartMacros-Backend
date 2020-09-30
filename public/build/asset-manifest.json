@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9246da21.chunk.css",
+    "main.js": "/static/js/main.36cd9006.chunk.js",
+    "main.js.map": "/static/js/main.36cd9006.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ab94bc94.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ab94bc94.js.map",
+    "static/css/2.e24ffac6.chunk.css": "/static/css/2.e24ffac6.chunk.css",
+    "static/js/2.aa68a21c.chunk.js": "/static/js/2.aa68a21c.chunk.js",
+    "static/js/2.aa68a21c.chunk.js.map": "/static/js/2.aa68a21c.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.48ce4d4895fa69b921c468db5da8b730.js": "/precache-manifest.48ce4d4895fa69b921c468db5da8b730.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.e24ffac6.chunk.css.map": "/static/css/2.e24ffac6.chunk.css.map",
+    "static/css/main.9246da21.chunk.css.map": "/static/css/main.9246da21.chunk.css.map",
+    "static/js/2.aa68a21c.chunk.js.LICENSE.txt": "/static/js/2.aa68a21c.chunk.js.LICENSE.txt",
+    "static/media/SmartMacrosLogo.mp4": "/static/media/SmartMacrosLogo.5d869966.mp4",
+    "static/media/SmartMacrosLogo.png": "/static/media/SmartMacrosLogo.cfbbf4b3.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ab94bc94.js",
+    "static/css/2.e24ffac6.chunk.css",
+    "static/js/2.aa68a21c.chunk.js",
+    "static/css/main.9246da21.chunk.css",
+    "static/js/main.36cd9006.chunk.js"
+  ]
+}

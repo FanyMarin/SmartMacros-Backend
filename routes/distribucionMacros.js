@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const DistribucionMacros = require("../models/DistribucionMacros");
 const User = require("../models/User");
+const { verifyToken } = require("../utils/auth")
 
 //Obtener parametros del usuario, calcular distribucion de macros y crear nuevo doc con esa info
-router.post("/create", (req, res) => {
-  //const = { _id } = req.user;
-  const _id = "5f6c0cd3fb9763476118d92d";
+router.post("/create", verifyToken, (req, res) => {
+  const { _id } = req.user;
   User.findById(
     _id,
     "sexo edad altura_cm peso_kg nivel_de_actividad objetivo numero_de_comidas tipo_de_dieta"
@@ -179,9 +179,8 @@ router.post("/create", (req, res) => {
 });
 
 //Obtener mi distribucion de macros
-router.get("/", (req, res) => {
- //const = { _id } = req.user;
- const _id = "5f6c0cd3fb9763476118d92d";
+router.get("/", verifyToken, (req, res) => {
+ const { _id } = req.user;
  DistribucionMacros.find({ usuario: _id })
    .then((miDistribucion) => {
      res.status(200).json({
