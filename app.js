@@ -33,7 +33,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public/build")));
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -42,11 +42,15 @@ const recetaRouter = require("./routes/receta");
 const registroRouter = require("./routes/registro");
 const distribucionMacrosRouter = require("./routes/distribucionMacros");
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/alimentos", alimentoRouter);
-app.use("/recetas", recetaRouter);
-app.use("/registros", registroRouter);
-app.use("/distribucion-macros", distribucionMacrosRouter);
+app.use("/api/", indexRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/alimentos", alimentoRouter);
+app.use("/api/recetas", recetaRouter);
+app.use("/api/registros", registroRouter);
+app.use("/api/distribucion-macros", distribucionMacrosRouter);
+
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/build","index.html"));
+});
 
 module.exports = app;
