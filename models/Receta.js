@@ -3,31 +3,31 @@ const Schema = mongoose.Schema;
 
 const recetaSchema = new Schema(
   {
-    nombre: {
+    Nombre: {
       type: String,
       required: [true, "Es necesario que nombres la receta"],
     },
-    informacion_nutricional: {
+    Descripcion: {
+      type: String,
+      min: 1,
+      max: 200,
+  },
+    Cantidad: {
         Porcion: {
           type: Number,
           required: true,
         },
         Unidad_de_medida: {
           type: String,
-          enum: ["g", "ml", "contenedor"],
+          enum: ["gr", "ml", "contenedor"],
         },
       },
-    descripcion: {
-        type: String,
-        min: 1,
-        max: 200,
-    },
-    ingredientes: [{
+    Ingredientes: [{
         type: Schema.Types.ObjectId,
         ref: "Alimento",
         required: [true, "Es necesario agregar los ingredientes para crear una receta"]
     }],
-    pasos: {
+    Pasos: {
         type: [String],
     },
     creador: {

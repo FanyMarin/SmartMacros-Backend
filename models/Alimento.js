@@ -5,7 +5,7 @@ const alimentoShema = new Schema(
   {
     Nombre: {
       type: String,
-      required: [true, "Es necesario que nombres el alimento"]
+      required: [true, "Es necesario que nombres el alimento"],
     },
     Descripcion: {
       type: String,
@@ -15,38 +15,36 @@ const alimentoShema = new Schema(
       min: 1,
       max: 50,
     },
-    Cantidad: {
-      Porcion: {
-        type: Number,
-        required: true,
-      },
-      Unidad_de_medida: {
-        type: String,
-        enum: ["g", "ml"],
-      },
+    Porcion: {
+      type: Number,
+      required: true,
     },
-    Informacion_nutricional: {
-      Grasas: {
-        type: Number,
-        required: true,
-      },
-      Carbohidratos: {
-        type: Number,
-        required: true,
-      },
-      Proteinas: {
-        type: Number,
-        required: true,
-      },
-      Calorias_kcal: {
-        type: Number
-      }
+    Unidad_de_medida: {
+      type: String,
+      enum: ["gr", "ml"],
+      required: true,
+    },
+    Grasas: {
+      type: Number,
+      required: true,
+    },
+    Carbohidratos: {
+      type: Number,
+      required: true,
+    },
+    Proteinas: {
+      type: Number,
+      required: true,
+    },
+    Calorias_kcal: {
+      type: Number,
+      required: true,
     },
     Creador: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: "true"
-    }
+      required: "true",
+    },
   },
   { timestamps: true }
 );

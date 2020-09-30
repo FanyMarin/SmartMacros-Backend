@@ -6,7 +6,7 @@ const { verifyToken } = require("../utils/auth")
 
 //1) Obtener todas las recetas de la coleccion
 router.get("/", verifyToken, (req, res) => {
-  Receta.find({}, "nombre informacion_nutricional")
+  Receta.find({}, "Nombre Cantidad")
     .then((recetas) => {
       res.status(200).json({
         result: recetas,
@@ -20,7 +20,7 @@ router.get("/", verifyToken, (req, res) => {
 //2) Obtener todas las recetas de un usuario en especifico:
 router.get("/mis-recetas", verifyToken, (req, res) => {
   const { _id } = req.user;
-  Receta.find({ creador: _id }, "nombre informacion_nutricional")
+  Receta.find({ creador: _id }, "Nombre Cantidad")
     .then((recetas) => {
       res.status(200).json({
         result: recetas,
@@ -35,7 +35,7 @@ router.get("/mis-recetas", verifyToken, (req, res) => {
 router.get("/:id", verifyToken, (req, res) => {
   const { id } = req.params;
   Receta.findById(id)
-    .populate("ingredientes", "Nombre")
+    .populate("Ingredientes", "Nombre")
     .then((receta) => {
       res.status(200).json({
         result: receta,
@@ -68,7 +68,7 @@ router.post("/crear-receta", verifyToken, (req, res) => {
 router.patch("/actualizar/:id", verifyToken, (req, res) => {
   const { id } = req.params;
   Receta.findByIdAndUpdate(id, req.body, { new: true })
-    .populate("ingredientes", "Nombre")
+    .populate("Ingredientes", "Nombre")
     .then((recetaActualizada) => {
       res.status(200).json({
         result: recetaActualizada,

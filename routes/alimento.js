@@ -8,7 +8,7 @@ const { verifyToken } = require("../utils/auth");
 
 //1) Obtener todos los alimentos de la coleccion:
 router.get("/", verifyToken, (req, res) => {
-  Alimento.find({}, "Nombre")
+  Alimento.find({}, { Descripcion: 0, Marca: 0, Creador: 0, _id: 0 })
     .then((alimentos) => {
       res.status(200).json({
         result: alimentos,
@@ -22,7 +22,10 @@ router.get("/", verifyToken, (req, res) => {
 //2) Obtener los alimentos de un usuario en especifico:
 router.get("/mis-alimentos", verifyToken, (req, res) => {
   const { _id } = req.user;
-  Alimento.find({ Creador: _id }, "Nombre")
+  Alimento.find(
+    { Creador: _id },
+    { Descripcion: 0, Marca: 0, Creador: 0, _id: 0 }
+  )
     .then((alimentos) => {
       res.status(200).json({
         result: alimentos,
@@ -46,7 +49,7 @@ router.get("/:id", verifyToken, (req, res) => {
 //4)Crear un nuevo alimento:
 router.post("/crear-alimento", verifyToken, (req, res) => {
   const { _id: Creador } = req.user;
-  const alimento = {...req.body, Creador}
+  const alimento = { ...req.body, Creador };
   Alimento.create(alimento)
     .then((alimento) => {
       res.status(201).json({ result: alimento });
