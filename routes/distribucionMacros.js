@@ -5,7 +5,7 @@ const User = require("../models/User");
 const { verifyToken } = require("../utils/auth")
 
 //Obtener parametros del usuario, calcular distribucion de macros y crear nuevo doc con esa info
-router.post("/create", verifyToken, (req, res) => {
+router.post("/mis-resultados", verifyToken, (req, res) => {
   const { _id } = req.user;
   User.findById(
     _id,
