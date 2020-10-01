@@ -38,14 +38,12 @@ app.use(express.static(path.join(__dirname, "public/build")));
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const alimentoRouter = require("./routes/alimento");
-const recetaRouter = require("./routes/receta");
 const registroRouter = require("./routes/registro");
 const distribucionMacrosRouter = require("./routes/distribucionMacros");
 
 app.use("/api/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/alimentos", alimentoRouter);
-app.use("/api/recetas", recetaRouter);
 app.use("/api/registros", registroRouter);
 app.use("/api/distribucion-macros", distribucionMacrosRouter);
 

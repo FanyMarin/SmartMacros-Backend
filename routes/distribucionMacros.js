@@ -2,24 +2,24 @@ const express = require("express");
 const router = express.Router();
 const DistribucionMacros = require("../models/DistribucionMacros");
 const User = require("../models/User");
-const { verifyToken } = require("../utils/auth")
+const { verifyToken } = require("../utils/auth");
 
 //Obtener parametros del usuario, calcular distribucion de macros y crear nuevo doc con esa info
-router.post("/mis-resultados", verifyToken, (req, res) => {
+router.post("/", verifyToken, (req, res) => {
   const { _id } = req.user;
   User.findById(
     _id,
     "sexo edad altura_cm peso_kg nivel_de_actividad objetivo numero_de_comidas tipo_de_dieta"
   )
-    .then((UserParametrosJSON) => {
-      let UserParametros = UserParametrosJSON.toObject();
+    .then((UserParametros) => {
+      // let UserParametros = UserParametrosJSON.toObject();
       console.log(UserParametros);
       let sexo = UserParametros.sexo;
       let edad = UserParametros.edad;
       let nivelDeActividad = UserParametros.nivel_de_actividad;
       let objetivo = UserParametros.objetivo;
       let tipoDeDieta = UserParametros.tipo_de_dieta;
-      let numeroDeComidas = UserParametros.numero_de_comidas
+      let numeroDeComidas = UserParametros.numero_de_comidas;
       let req_cal = 0;
       let carbs;
       let proteina;
@@ -122,49 +122,45 @@ router.post("/mis-resultados", verifyToken, (req, res) => {
       }
 
       //Distribucion de macronutrientes por cuantas comidas tenga el usuario al dia
-      switch(numeroDeComidas){
+      switch (numeroDeComidas) {
         case 1:
-            carbsPorComida = carbs;
-            proteinaPorComida = proteina;
-            grasasPorComida = grasas;
-            break;
+          carbsPorComida = carbs;
+          proteinaPorComida = proteina;
+          grasasPorComida = grasas;
+          break;
         case 2:
-            carbsPorComida = carbs/2
-            proteinaPorComida = proteina/2;
-            grasasPorComida = grasas/2;
-            break;
+          carbsPorComida = Math.floor(carbs / 2);
+          proteinaPorComida = Math.floor(proteina / 2);
+          grasasPorComida = Math.floor(grasas / 2);
+          break;
         case 3:
-            carbsPorComida = carbs/3
-            proteinaPorComida = proteina/3;
-            grasasPorComida = grasas/3;
-            break;
+          carbsPorComida = Math.floor(carbs / 3);
+          proteinaPorComida = Math.floor(proteina / 3);
+          grasasPorComida = Math.floor(grasas / 3);
+          break;
         case 4:
-            carbsPorComida = carbs/4
-            proteinaPorComida = proteina/4;
-            grasasPorComida = grasas/4;
-            break;
+          carbsPorComida = Math.floor(carbs / 4);
+          proteinaPorComida = Math.floor(proteina / 4);
+          grasasPorComida = Math.floor(grasas / 4);
+          break;
         case 5:
-            carbsPorComida = carbs/5
-            proteinaPorComida = proteina/5;
-            grasasPorComida = grasas/5;
-            break;
+          carbsPorComida = Math.floor(carbs / 5);
+          proteinaPorComida = Math.floor(proteina / 5);
+          grasasPorComida = Math.floor(grasas / 5);
+          break;
       }
 
       DistribucionMacros.create({
-        Requerimiento_calorico: {
-          Metabolismo_basal: metabolismoBasal,
-          Calorias_de_mantenimiento: caloriasMantenimiento,
-          Calorias_por_objetivo: req_cal,
-        },
+        Metabolismo_basal: metabolismoBasal,
+        Calorias_de_mantenimiento: caloriasMantenimiento,
+        Calorias_por_objetivo: req_cal,
         Carbohidratos: carbs,
         Proteinas: proteina,
         Grasas: grasas,
+        Carbohidratos_por_comida: carbsPorComida,
+        Proteinas_por_comida: proteinaPorComida,
+        Grasas_por_comida: grasasPorComida,
         usuario: _id,
-        Macronutrientes_por_comida: {
-          Carbohidratos: carbsPorComida,
-          Proteinas: proteinaPorComida,
-          Grasas: grasasPorComida,
-        },
       })
         .then((doc) => {
           res.status(201).json({
@@ -180,18 +176,21 @@ router.post("/mis-resultados", verifyToken, (req, res) => {
 
 //Obtener mi distribucion de macros
 router.get("/", verifyToken, (req, res) => {
- const { _id } = req.user;
- DistribucionMacros.find({ usuario: _id })
-   .then((miDistribucion) => {
-     res.status(200).json({
-       result: miDistribucion,
-     });
-   })
-   .catch((err) => {
-     res.status(400).json(err);
-   });
-})
+  const { _id } = req.user;
+  DistribucionMacros.find({ usuario: _id })
+    .then((miDistribucion) => {
+      res.status(200).json({
+        result: miDistribucion,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
 
-//Como hacer para que cuando la informacion del usuario se actualice, automaticamente se 
+//Como hacer para que cuando la informacion del usuario se actualice, automaticamente se
 //actualice la distribucion de macro nutrientes tambien?
+
+//Para hacer que se cree la distribucion de macros automaticamente, tengo que usar una promesa?
+//Lo mismo para el update?
 module.exports = router;
