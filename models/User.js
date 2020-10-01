@@ -62,8 +62,8 @@ const userSchema = new Schema(
         "Perder peso",
         "Perder peso lentamente",
         "Mantener peso",
-        "Aumentar peso lentamente",
-        "Aumentar peso",
+        "Aumentar masa muscular lentamente",
+        "Aumentar masa muscular",
       ],
       required: [true, "Es necesario que especifiques tu objetivo"],
     },
@@ -89,9 +89,6 @@ const userSchema = new Schema(
         "Es necesario que especifiques el tipo de dieta que quieres seguir",
       ],
     },
-    // foto_de_perfil: {
-    //   type: String,
-    // },
   },
   { timestamps: true }
 );
