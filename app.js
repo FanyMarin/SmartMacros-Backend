@@ -30,6 +30,7 @@ app.use(
       "http://localhost:3000",
       "http://localhost:3001",
       "https://floating-everglades-70656.herokuapp.com",
+      "https://smart-macros.herokuapp.com ",
     ],
     credentials: true,
   })
