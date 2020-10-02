@@ -24,10 +24,16 @@ mongoose
 const app = express();
 
 //configuracion del cors
-app.use(cors({
-  origin: ["http://localhost:3000", "http://localhost:3001"],
-  credentials: true,
-}))
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "https://floating-everglades-70656.herokuapp.com",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -48,7 +54,7 @@ app.use("/api/registros", registroRouter);
 app.use("/api/distribucion-macros", distribucionMacrosRouter);
 
 app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/build","index.html"));
+  res.sendFile(path.join(__dirname, "public/build", "index.html"));
 });
 
 module.exports = app;
