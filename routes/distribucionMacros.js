@@ -12,7 +12,6 @@ router.post("/", verifyToken, (req, res) => {
     "sexo edad altura_cm peso_kg nivel_de_actividad objetivo numero_de_comidas tipo_de_dieta"
   )
     .then((UserParametros) => {
-      // let UserParametros = UserParametrosJSON.toObject();
       console.log(UserParametros);
       let sexo = UserParametros.sexo;
       let edad = UserParametros.edad;
@@ -188,9 +187,4 @@ router.get("/", verifyToken, (req, res) => {
     });
 });
 
-//Como hacer para que cuando la informacion del usuario se actualice, automaticamente se
-//actualice la distribucion de macro nutrientes tambien?
-
-//Para hacer que se cree la distribucion de macros automaticamente, tengo que usar una promesa?
-//Lo mismo para el update?
 module.exports = router;
