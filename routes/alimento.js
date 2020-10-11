@@ -3,9 +3,6 @@ const router = express.Router();
 const Alimento = require("../models/Alimento");
 const { verifyToken } = require("../utils/auth");
 
-//NECESITO:
-//7) Poder obtener alimentos de una base de datos externa, eso se hace aqui mismo o en otro archivo?
-
 //1) Obtener todos los alimentos de la coleccion:
 router.get("/", verifyToken, (req, res) => {
   Alimento.find({}, { Descripcion: 0, Marca: 0, Creador: 0 })
