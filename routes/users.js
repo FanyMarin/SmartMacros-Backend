@@ -3,6 +3,8 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { verifyToken } = require("../utils/auth");
+
 
 //1) signup
 router.post("/signup", (req, res) => {
@@ -50,9 +52,9 @@ router.post("/logout", (req, res) => {
 });
 
 //4) Obtener la informacion del usuario
-router.get("/my-info/:id", (req, res) => {
-  const { id } = req.params;
-  User.findById(id)
+router.get("/my-info", verifyToken, (req, res) => {
+  const { _id } = req.user;
+  User.findById(_id)
     .then((user) => {
       res.status(200).json({
         result: user,
@@ -64,9 +66,9 @@ router.get("/my-info/:id", (req, res) => {
 });
 
 //5) Para actualizar la informacion del usuario:
-router.patch("/actualizar/:id", (req, res) => {
-  const { id } = req.params;
-  User.findByIdAndUpdate(id, req.body, { new: true })
+router.patch("/actualizar", verifyToken,(req, res) => {
+  const { _id } = req.user;
+  User.findByIdAndUpdate(_id, req.body, { new: true })
     .then((user) => {
       res.status(200).json({
         result: user,
